@@ -5,7 +5,8 @@
 #include<unistd.h>
 #include<errno.h>
 #include<sys/types.h>
-#define CPU 0
+//#define CPU 0
+#define CPU 1
 
 void error(char *ptr)
 {
@@ -21,9 +22,9 @@ int main(int argc, char *argv[])
     cpu_set_t my_set;                /*CPU_SET Structure*/
 
 
-    pid=getpid();         
-    CPU_ZERO(&my_set);  
-    CPU_SET(CPU,&my_set);
+    pid=getpid();                    /*get the process id*/      
+    CPU_ZERO(&my_set);               /*Clears set, so that it contains no CPUs*/
+    CPU_SET(CPU,&my_set);            /*Add CPU cpu to set*/
                 
               /**Set-Affinity**/
     setaffinity=sched_setaffinity(0,sizeof(cpu_set_t),&my_set);
